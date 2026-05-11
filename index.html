@@ -6,88 +6,14 @@
   <title>Snake Racing – Thank You</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body {
-      height: 100%;
-      font-family: sans-serif;
-    }
-
-    /* --- COUNTDOWN (shown before launch date) --- */
-    #countdown-screen {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      background: #0a0a0a;
-      color: #fff;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    #countdown-screen h1 {
-      font-size: clamp(1.4rem, 4vw, 2.5rem);
-      margin-bottom: 0.5rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-    }
-
-    #countdown-screen p {
-      font-size: clamp(0.9rem, 2vw, 1.1rem);
-      color: #aaa;
-      margin-bottom: 2.5rem;
-    }
-
-    .timer {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .timer-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: #1a1a1a;
-      border: 1px solid #333;
-      border-radius: 12px;
-      padding: 1rem 1.5rem;
-      min-width: 80px;
-    }
-
-    .timer-block .num {
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      font-weight: 800;
-      line-height: 1;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .timer-block .label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #888;
-      margin-top: 0.4rem;
-    }
-
-    /* --- LANDING PAGE (shown on/after launch date) --- */
-    #landing-screen {
-      display: none;
-      min-height: 100vh;
-      width: 100%;
-    }
-
+    html, body { height: 100%; background: #000; }
     .hero {
-      position: relative;
       width: 100%;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: relative;
+      overflow: hidden;
     }
-
-    .hero-bg {
+    .hero img {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -95,75 +21,12 @@
       object-fit: cover;
       object-position: center top;
     }
-
-    /* dark overlay for legibility on smaller screens */
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.35) 100%);
-    }
   </style>
 </head>
 <body>
-
-  <!-- COUNTDOWN SCREEN -->
-  <div id="countdown-screen">
-    <h1>Snake Racing</h1>
-    <p>A special message is coming soon…</p>
-    <div class="timer">
-      <div class="timer-block"><span class="num" id="cd-days">--</span><span class="label">Days</span></div>
-      <div class="timer-block"><span class="num" id="cd-hours">--</span><span class="label">Hours</span></div>
-      <div class="timer-block"><span class="num" id="cd-mins">--</span><span class="label">Mins</span></div>
-      <div class="timer-block"><span class="num" id="cd-secs">--</span><span class="label">Secs</span></div>
-    </div>
+  <div class="hero">
+    <img src="./bg.png"
+         alt="Thank you for your support after 40 years – the time has come to say goodbye. Email: sales@snakeracing.com.au">
   </div>
-
-  <!-- LANDING PAGE SCREEN -->
-  <div id="landing-screen">
-    <div class="hero">
-      <img class="hero-bg" src="./bg.png" alt="Snake Racing – Thank you for 40 years. The time has come to say goodbye." width="1456" height="816" loading="eager">
-      <div class="hero-overlay"></div>
-    </div>
-  </div>
-
-  <script>
-    // ============================================================
-    //  SET YOUR LAUNCH DATE HERE (AEST = UTC+10)
-    //  Format: YYYY, MM-1 (Jan=0), DD, HH, MM, SS
-    //  Example below = 1 June 2026 at 09:00 AEST (= 23:00 UTC May 31)
-    // ============================================================
-    const LAUNCH_DATE_UTC = new Date(Date.UTC(2026, 5, 1, 23, 0, 0)); // 1 Jun 2026 09:00 AEST
-
-    const countdown = document.getElementById('countdown-screen');
-    const landing   = document.getElementById('landing-screen');
-
-    function pad(n) { return String(n).padStart(2, '0'); }
-
-    function tick() {
-      const now  = new Date();
-      const diff = LAUNCH_DATE_UTC - now;
-
-      if (diff <= 0) {
-        // Launch time reached — show landing page
-        countdown.style.display = 'none';
-        landing.style.display   = 'block';
-        clearInterval(timer);
-        return;
-      }
-
-      const days  = Math.floor(diff / 86400000);
-      const hours = Math.floor((diff % 86400000) / 3600000);
-      const mins  = Math.floor((diff % 3600000)  / 60000);
-      const secs  = Math.floor((diff % 60000)    / 1000);
-
-      document.getElementById('cd-days').textContent  = pad(days);
-      document.getElementById('cd-hours').textContent = pad(hours);
-      document.getElementById('cd-mins').textContent  = pad(mins);
-      document.getElementById('cd-secs').textContent  = pad(secs);
-    }
-
-    tick();
-    const timer = setInterval(tick, 1000);
-  </script>
 </body>
 </html>
