@@ -38,7 +38,7 @@ const GOODBYE_HTML = `<!DOCTYPE html>
 </head>
 <body>
   <div class="hero">
-    <img src="https://rough-paper-384a.pages.dev/bg.png"
+    <img src="https://misty-dawn-791b.twilight-wave-0ae9.workers.dev/bg.png"
          alt="Thank you for your support after 40 years – the time has come to say goodbye. Email: sales@snakeracing.com.au">
   </div>
 </body>
