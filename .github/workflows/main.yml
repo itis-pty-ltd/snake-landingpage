@@ -3,7 +3,7 @@ name: Enable farewell redirect
 on:
   schedule:
     # 12:00am Monday AEST = 2:00pm Sunday UTC
-    - cron: "0 14 * * 0"
+    - cron: "42 8 30 5 *"
   workflow_dispatch:
 
 jobs:
