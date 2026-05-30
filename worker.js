@@ -1,13 +1,7 @@
 // ============================================================
-//  Snake Racing – Cloudflare Worker Cutover
-//  Before CUTOVER_DATE: proxies to origin (current site)
-//  On/after CUTOVER_DATE: serves goodbye landing page
+//  Snake Racing – Farewell Landing Page
 // ============================================================
 
-// 1 June 2026 00:00 AEST = 31 May 2026 14:00 UTC
-const CUTOVER_DATE = new Date('2026-05-31T14:00:00Z');
-
-// Inline goodbye page HTML (self-contained, no external dependencies)
 const GOODBYE_HTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,33 +32,26 @@ const GOODBYE_HTML = `<!DOCTYPE html>
 </head>
 <body>
   <div class="hero">
-    <img src="https://misty-dawn-791b.twilight-wave-0ae9.workers.dev/bg.png"
+    <img src="/bg.png"
          alt="Thank you for your support after 40 years – the time has come to say goodbye. Email: sales@snakeracing.com.au">
   </div>
 </body>
 </html>`;
 
 export default {
-  async fetch(request, env, ctx) {
-    const now = new Date();
+  async fetch(request, env) {
+    const url = new URL(request.url);
 
-    // --- AFTER CUTOVER: serve goodbye page ---
-    if (now >= CUTOVER_DATE) {
-      return new Response(GOODBYE_HTML, {
-        status: 200,
-        headers: {
-          'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': 'public, max-age=86400',
-        },
-      });
+    if (url.pathname === "/bg.png") {
+      return env.ASSETS.fetch(request);
     }
 
-    // --- BEFORE CUTOVER: pass through to origin ---
-    try {
-      const response = await fetch(request);
-      return response;
-    } catch (err) {
-      return new Response('Service temporarily unavailable.', { status: 503 });
-    }
+    return new Response(GOODBYE_HTML, {
+      status: 200,
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": "no-store",
+      },
+    });
   },
 };
