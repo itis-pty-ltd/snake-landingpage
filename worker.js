@@ -12,19 +12,17 @@ const GOODBYE_HTML = `<!DOCTYPE html>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; background: #000; }
     .hero {
-      position: relative;
       width: 100%;
-      min-height: 100vh;
+      min-height: 100svh;
       display: flex;
       align-items: center;
       justify-content: center;
+      background: #000;
       overflow: hidden;
     }
     .hero img {
-      position: absolute;
-      inset: 0;
       width: 100%;
-      height: 100%;
+      height: 100svh;
       object-fit: contain;
       object-position: center center;
       display: block;
